@@ -43,6 +43,7 @@ while game_is_on:
         or snake.head.ycor() < -280
     ):
         game_is_on = False
+        scoreboard.game_over()
 
     #! Detect collision of head with snake body
     for segment in snake.segments[1:]:
