@@ -34,7 +34,7 @@ def encode(user_input, shift_number):
         old_index = alphabet.index(current_letter)
         new_index = (old_index + shift_number) % 26
         encoded_text += alphabet[new_index]
-    print(f"\n{encoded_text}")
+    print(f"\nEncoded text: {encoded_text}")
 
 
 def decode(user_input, shift_number):
@@ -43,14 +43,14 @@ def decode(user_input, shift_number):
         old_index = alphabet.index(current_letter)
         new_index = (old_index - shift_number) % 26
         decoded_text += alphabet[new_index]
-    print(f"\n{decoded_text}")
+    print(f"\nDecoded text: {decoded_text}")
 
 
 user_input = input("Enter your passphrase:\n")
 operation = input("Do you want to encode or decode it [ENCODE/DECODE]:\n").lower()
 shift_number = int(input("Type shift number:\n"))
 
-if user_input == "encode":
+if operation == "encode":
     encode(user_input, shift_number)
-elif user_input == "decode":
+elif operation == "decode":
     decode(user_input, shift_number)
