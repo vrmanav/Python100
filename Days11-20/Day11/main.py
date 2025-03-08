@@ -1,20 +1,8 @@
-# Blackjack Game Rules:
-# The goal of the game is to beat the dealer's hand without going over 21.
-# Face cards (Kings, Queens, and Jacks) are worth 10 points. ✅
-# Aces are worth 1 or 11 points, whichever makes a better hand. ✅
-# Each player starts with two cards, one of the dealer's cards is hidden until the end. ✅
-# Players can choose to "Hit" to take another card or "Stand" to hold their total and end their turn. ✅
-# If a player goes over 21 points, they "bust" and lose the game.
-# The dealer must hit until their cards total 17 or higher.
-# If the dealer busts, all remaining players win.
-# If neither the player nor the dealer busts, the higher hand wins.
-
 import random
 
 
-def deal_card():
-    """Returns a card from deck"""
-    cards = [2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
+def give_cards():
+    cards = [2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11]
     return random.choice(cards)
 
 
@@ -27,58 +15,53 @@ def calculate_score(cards):
     return sum(cards)
 
 
-def compare(user_score, computer_score):
-    if user_score == computer_score:
-        return "\nIt's a DRAW"
-    elif computer_score == 0:
-        return "\nYou LOSE. Dealer has a BlackJack"
+def show_result(user_score, dealer_score):
+    if user_score == dealer_score:
+        return "It's a Draw"
+    elif dealer_score == 0:
+        return "You lose, dealer has Blackjack"
     elif user_score == 0:
-        return "\nYou WIN. You have a BlackJack"
+        return "You win with a Blackjack"
     elif user_score > 21:
-        return "\nYou LOSE. You went over"
-    elif computer_score > 21:
-        return "\nYou WIN. Dealer went over"
-    elif user_score > computer_score:
-        return "\n You WIN."
+        return "You went over. You lose"
+    elif dealer_score > 21:
+        return "Dealer went over. You win"
+    elif user_score > dealer_score:
+        return "You win"
     else:
-        return "\nYou LOSE."
+        return "You lose"
 
 
 def blackjack():
-    print("♠️ Welcome to Blackjack Game ♣️")
     user_cards = []
-    computer_cards = []
-    user_score = -1
-    computer_score = -1
-    continue_game = True
+    dealer_cards = []
+    game_not_over = True
 
+    # Give initial 2 cards to dealer & user
     for card in range(2):
-        user_cards.append(deal_card())
-        computer_cards.append(deal_card())
+        user_cards.append(give_cards())
+        dealer_cards.append(give_cards())
 
-    while continue_game:
+    while game_not_over:
         user_score = calculate_score(user_cards)
-        computer_score = calculate_score(computer_cards)
-        print(f"\nYour cards {user_cards} with score {user_score}")
-        print(f"Computer's first card {computer_cards[0]}")
-
-        if user_score == 0 or computer_score == 0 or user_score > 21:
-            continue_game = False
+        dealer_score = calculate_score(dealer_cards)
+        if user_score > 21:
+            game_not_over = False
         else:
-            user_hit = input("Do you want to take another card, type HIT, else type STAND: ").lower()
+            print(f"\nYour cards are {user_cards} with score {user_score}")
+            print(f"Dealer's first card is [{dealer_cards[0]}]")
+            user_hit = input("To get another card type 'HIT', else 'STAND': ").lower()
             if user_hit == "hit":
-                user_cards.append(deal_card())
+                user_cards.append(give_cards())
             else:
-                do_continue = False
+                game_not_over = False
 
-    while computer_score != 0 or computer_score < 17:
-        computer_cards.append(deal_card())
-        computer_score = calculate_score(computer_cards)
-
-    print(f"Your final hand {user_cards} with score {user_score}")
-    print(f"Dealer final hand {computer_cards} with score {computer_score}")
-    print(compare(user_score, computer_score))
-
+    while dealer_score < 17:
+        dealer_cards.append(give_cards())
+        dealer_score = calculate_score(dealer_cards)
+    print(f"\nYour final hand: {user_cards}, final score: {user_score}")
+    print(f"Dealer's final hand: {dealer_cards}, final score: {dealer_score}")
+    print(show_result(user_score, dealer_score))
 
 
 blackjack()
