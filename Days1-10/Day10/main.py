@@ -1,6 +1,4 @@
 from os import system
-
-
 def add(n1, n2):
     return n1 + n2
 
@@ -43,15 +41,13 @@ def calculator():
         print(f"{n1} {operation} {n2} = {answer}")
 
         choice = input(
-            f"\nTo continue with {answer} type YES, to start fresh calculation type NEW, or to end type END:\n"
+            f"\nTo continue with {answer} type YES, or to end type END:\n"
         ).lower()
         if choice == "end":
             do_continue = False
             print("\nGOOD-BYE 👋🏼")
         elif choice == "yes":
             n1 = answer
-        elif choice == "new":
-            calculator()
 
 
 calculator()
