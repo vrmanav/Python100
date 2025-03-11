@@ -1,4 +1,6 @@
 from os import system
+
+
 def add(n1, n2):
     return n1 + n2
 
@@ -48,7 +50,7 @@ def calculator():
             print("\nGOOD-BYE 👋🏼")
         elif choice == "yes":
             n1 = answer
-        else:
+        elif choice == "new":
             calculator()
 
 
