@@ -32,6 +32,14 @@ def greet():
     print(f"* Cappuccino\t\t ${cappuccino_cost}")
 
 
+def is_resource_sufficient(drink_ingredients):
+    for item in drink_ingredients:
+        if drink_ingredients[item] >= resources[item]:
+            print(f"\n⚠️ Sorry there is not sufficient {item}")
+            return False
+    return True
+
+
 def coffee_maker():
     greet()
     order = input("\nWhat would you like to drink:\n").lower()
@@ -43,6 +51,8 @@ def coffee_maker():
         print("Machine turned OFF 😴")
     else:
         drink = MENU[order]
+        if is_resource_sufficient(drink["ingredients"]):
+            
 
 
 coffee_maker()
